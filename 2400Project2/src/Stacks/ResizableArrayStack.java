@@ -1,4 +1,5 @@
-public class LinkedStack<T> implements StackInterface<T> {
+package Stacks;
+public class ResizableArrayStack<T> implements StackInterface<T> {
 
     @Override
     public void push(T entry) {
