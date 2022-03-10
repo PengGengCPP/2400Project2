@@ -9,6 +9,6 @@ public class DriverPostfix {
         System.out.println("Infix Expression: " + infix);
         System.out.println("Postfix Expression: " + postfix);
 
-        //todo: postfix evaluator when arraystack is done
+        //TODO: postfix evaluator when arraystack is done
     }
 }
