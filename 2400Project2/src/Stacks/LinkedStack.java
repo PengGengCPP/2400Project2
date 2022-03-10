@@ -27,7 +27,7 @@ public class LinkedStack<T> implements StackInterface<T>
     public T peek()
     {   
         if (isEmpty())
-            throw new EmptyStackException("Stack is empty!");
+            throw new EmptyStackException();
         else
             return topNode.getData();
     }
@@ -57,7 +57,7 @@ public class LinkedStack<T> implements StackInterface<T>
         {
             return data;
         }
-
+        @SuppressWarnings("unused")
         public void setData(T inputData) // never used
         {
             data = inputData;
@@ -67,7 +67,7 @@ public class LinkedStack<T> implements StackInterface<T>
         {
             return next;
         }
-
+        @SuppressWarnings("unused")
         public void setNextNode(Node inputNextNode) // never used
         {
             next = inputNextNode;
