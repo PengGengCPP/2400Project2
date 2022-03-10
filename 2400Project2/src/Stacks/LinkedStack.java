@@ -1,34 +1,73 @@
 package Stacks;
-public class LinkedStack<T> implements StackInterface<T> {
+public class LinkedStack<T> implements StackInterface<T>
+{
+    private Node topNode; // references the first node in the chain
 
-    @Override
-    public void push(T entry) {
-        // TODO Auto-generated method stub
-        
+    public LinkedStack()
+    {
+        topNode = null;
     }
 
-    @Override
-    public T pop() {
-        // TODO Auto-generated method stub
-        return null;
+    public void push(T newEntry)
+    {
+        Node newNode = new Node(newEntry, topNode);
+        topNode = newNode;
     }
 
-    @Override
-    public T peek() {
-        // TODO Auto-generated method stub
-        return null;
+    public T pop()
+    {
+        T top = peek();  // Might throw EmptyStackException
+        topNode = topNode.getNextNode();
+        return top;
     }
 
-    @Override
-    public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        return false;
+    public T peek() ////////////////////////////////is returning null ok
+    {   
+        if (isEmpty())
+            return null; 
+        else
+            return topNode.getData();
     }
 
-    @Override
-    public void clear() {
-        // TODO Auto-generated method stub
-        
+    public boolean isEmpty()
+    {
+        return topNode == null;
     }
-    
-}
+
+    public void clear()
+    {
+        topNode = null;
+    }
+
+    private class Node
+    {
+        private T data;
+        private Node next;
+
+        public Node(T inputData, Node inputNextNode)
+        {
+            data = inputData;
+            next = inputNextNode;
+        }
+
+        public T getData()
+        {
+            return data;
+        }
+
+        public void setData(T inputData) // never used
+        {
+            data = inputData;
+        }
+
+        public Node getNextNode()
+        {
+            return next;
+        }
+
+        public void setNextNode(Node inputNextNode) // never used
+        {
+            next = inputNextNode;
+        }
+    } // end Node
+} // end LinkedStack
