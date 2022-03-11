@@ -79,19 +79,19 @@ public class PostfixEvaluator {
             int ret = 0;
             switch (operand) {
                 case '+':
-                    ret = operandTwo + operandOne;
+                    ret = operandOne + operandTwo;
                     break;
                 case '-':
-                    ret = operandTwo - operandOne;
+                    ret = operandOne - operandTwo;
                     break;
                 case '*':
-                    ret = operandTwo * operandOne;
+                    ret = operandOne * operandTwo;
                     break;
                 case '/':
-                    ret = operandTwo / operandOne;
+                    ret = operandOne / operandTwo;
                     break;
                 case '^':
-                    ret = (int) Math.pow(operandTwo, operandOne);
+                    ret = (int) Math.pow(operandOne, operandTwo);
                     break;
             
                 default:
@@ -115,8 +115,8 @@ public class PostfixEvaluator {
                 if (Character.isAlphabetic(currentChar)) {
                     mathStack.push(getVariableValue(currentChar));
                 } else if (currentChar == '+' || currentChar == '-' || currentChar == '*' || currentChar == '/') {
-                    int operandOne = mathStack.pop();
                     int operandTwo = mathStack.pop();
+                    int operandOne = mathStack.pop();
                     int result = evaluateOperator(operandOne, operandTwo, currentChar);
                     mathStack.push(result);
                 }
