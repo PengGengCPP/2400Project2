@@ -1,4 +1,7 @@
 package Stacks;
+
+import java.util.EmptyStackException;
+
 public class LinkedStack<T> implements StackInterface<T>
 {
     private Node topNode; // references the first node in the chain
@@ -21,10 +24,10 @@ public class LinkedStack<T> implements StackInterface<T>
         return top;
     }
 
-    public T peek() ////////////////////////////////is returning null ok
+    public T peek()
     {   
         if (isEmpty())
-            return null; 
+            throw new EmptyStackException();
         else
             return topNode.getData();
     }
@@ -54,7 +57,7 @@ public class LinkedStack<T> implements StackInterface<T>
         {
             return data;
         }
-
+        @SuppressWarnings("unused")
         public void setData(T inputData) // never used
         {
             data = inputData;
@@ -64,7 +67,7 @@ public class LinkedStack<T> implements StackInterface<T>
         {
             return next;
         }
-
+        @SuppressWarnings("unused")
         public void setNextNode(Node inputNextNode) // never used
         {
             next = inputNextNode;
