@@ -11,8 +11,8 @@ public class DriverPostfix {
 
         //TODO: this is waiting for the arrayStack implementation
 
-        PostfixEvaluator eval = new PostfixEvaluator(2, 3, 4, 5, 6);
-        System.out.println("Evaluation of Postfix Expression" + eval.evaluate(postfix));
+        PostfixEvaluator evaluator = new PostfixEvaluator(2, 3, 4, 5, 6);
+        System.out.println("Evaluation of Postfix Expression" + evaluator.evaluate(postfix));
         
     }
 }
