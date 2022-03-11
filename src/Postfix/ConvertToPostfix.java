@@ -1,7 +1,6 @@
 package Postfix;
 
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
 import Stacks.LinkedStack;
 
