@@ -72,12 +72,12 @@ public class PostfixEvaluator {
          * evaluates an expression (in terms of infix notations) using operandTwo as the first part, the operand as the middle part, and operandOne as the last part.
          * @param operandOne
          * @param operandTwo
-         * @param operand
+         * @param operator
          * @return
          */
-        private int evaluateOperator(int operandOne, int operandTwo, char operand) {
+        private int evaluateOperator(int operandOne, int operandTwo, char operator) {
             int ret = 0;
-            switch (operand) {
+            switch (operator) {
                 case '+':
                     ret = operandOne + operandTwo;
                     break;
