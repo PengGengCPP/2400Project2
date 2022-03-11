@@ -93,14 +93,4 @@ public class ConvertToPostfix {
 
         return postfixExp;
     }
-
-    public static void main(String[] args) {
-        ConvertToPostfix translator = new ConvertToPostfix();
-        @SuppressWarnings("resource")
-        Scanner scan = new Scanner(System.in);
-        System.out.print("Enter expression: ");
-        String expression = scan.nextLine();
-
-        System.out.println("Postfix Result: " + translator.infixToPostfix(expression));
-    }
 }
