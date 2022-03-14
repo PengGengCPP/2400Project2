@@ -16,7 +16,9 @@ public class ResizableArrayStack<T> implements StackInterface<T> {
     public ResizableArrayStack(int inputInitialCapacity)
     {
         topIndex = -1;
-        T[] stack = (T[])new Object[inputInitialCapacity];
+        @SuppressWarnings("unchecked")
+        T[] tempArray = (T[])new Object[inputInitialCapacity];
+        this.stack = tempArray;
     }
 
     private void ensureCapacity() // double the size if the array becomes full
