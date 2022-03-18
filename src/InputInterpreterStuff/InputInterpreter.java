@@ -3,6 +3,7 @@ package InputInterpreterStuff;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Deque;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,8 +11,13 @@ import java.util.Stack;
 
 public class InputInterpreter {
     
-    public InputInterpreter() {
+    //kinda a mess ngl lmao
 
+    private HashSet<Character> allowedChars;
+
+    public InputInterpreter() {
+        allowedChars = new HashSet<>();
+        "0123456789/+-*()^".chars().forEach(o -> allowedChars.add((char) o));
     }
 
     public String[] interpretInput(String input) {
@@ -23,7 +29,11 @@ public class InputInterpreter {
         String cleanInput = removeWhitespace(input);
         
         //ensure non-alphabetical, numerical, and contains only allowed operators
-        //TODO: lmao
+        for (int i = 0; i < cleanInput.length(); i++) {
+            if (!(allowedChars.contains(cleanInput.charAt(i)))) {
+                throw new IllegalArgumentException("unsupported characters.");
+            }
+        }
 
         //brace checking
         if(!checkBalance(cleanInput)) {
