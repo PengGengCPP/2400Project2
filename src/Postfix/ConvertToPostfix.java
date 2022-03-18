@@ -1,10 +1,19 @@
 package Postfix;
 
+import java.util.HashSet;
 import java.util.InputMismatchException;
 
 import Stacks.LinkedStack;
 
 public class ConvertToPostfix {
+
+    private HashSet<Character> allowedCharacters;
+
+    public ConvertToPostfix() {
+        allowedCharacters = new HashSet<>();
+        "01234567890abcdefghijklmnopqrstuvwxyz()+-/*^".chars().forEach(c -> allowedCharacters.add((char) c));
+    }
+
     private static int getPrecedence(char operator) {
         int ret = 0;
         switch (operator) {
@@ -29,6 +38,14 @@ public class ConvertToPostfix {
     }
 
     public String infixToPostfix(String exp) {
+        // ensure that expression is made only out of valid characters
+        for (int i = 0; i < exp.length(); i++) {
+            if (!allowedCharacters.contains(exp.charAt(i))) {
+                throw new IllegalArgumentException("unsupported character");
+            }
+        }
+
+
         String postfixExp = ""; // string to build the expression on
         LinkedStack<Character> stack = new LinkedStack<>(); // stack to store operators
 
