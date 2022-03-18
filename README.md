@@ -13,6 +13,7 @@ Implementation of LinkedStack and ResizableArrayStack as well as code to convert
 - PostfixEvaluator object that you initialize with values for a, b, c, d, and e that evaluates a given postfix expression
 ## Extra Features
 
+- Unbalanced brace detection
 - Basic input filtration to allow only lowercase letters, numbers, and operators as the input infix expression
 - Input interpreter that can parse infix expression user input and display a calculated result (see InputInterpreterStuff/Driver.java)
 
