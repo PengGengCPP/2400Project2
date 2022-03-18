@@ -5,7 +5,9 @@ import java.util.Scanner;
 public class Driver {
     public static void main(String[] args) {
         ArrayPostfixConverter translator = new ArrayPostfixConverter();
-        
+
+        System.out.println("Enter the Equation to be Evaluated: ");
+
         @SuppressWarnings("resource")
         Scanner scan = new Scanner(System.in);
         String infix = scan.nextLine();
