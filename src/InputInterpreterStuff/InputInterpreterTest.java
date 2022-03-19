@@ -30,7 +30,12 @@ public class InputInterpreterTest {
 
     @Test
     void testInterpretInput() {
-
+        String t1 = "1+2(3+4)";
+        String t2 = "1 + 2 * (+3 +4)";
+        String t3 = "1 + 2 + (3 + 4)*";
+        assertThrows(IllegalArgumentException.class, () -> inp.interpretInput(t1));
+        assertThrows(IllegalArgumentException.class, () -> inp.interpretInput(t2));
+        assertThrows(IllegalArgumentException.class, () -> inp.interpretInput(t3));
     }
 
     @Test
