@@ -6,7 +6,7 @@ public class Driver {
     public static void main(String[] args) {
         ArrayPostfixConverter translator = new ArrayPostfixConverter();
 
-        System.out.println("Enter the Equation to be Evaluated: ");
+        System.out.println("Enter the Infix Expression to be Evaluated: ");
 
         @SuppressWarnings("resource")
         Scanner scan = new Scanner(System.in);
@@ -14,7 +14,6 @@ public class Driver {
 
         String postfix = translator.infixToPostfix(infix);
 
-        System.out.println("Infix Expression: " + infix);
         System.out.println("Postfix Expression: " + postfix);
 
         PostfixEvalulatorFMT evaluator = new PostfixEvalulatorFMT();
