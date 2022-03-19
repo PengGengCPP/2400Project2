@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Stack;
 
 public class InputInterpreter {
-    
-    //kinda a mess ngl lmao
+
+    // kinda a mess ngl lmao
 
     private HashSet<Character> allowedChars;
 
@@ -24,31 +24,36 @@ public class InputInterpreter {
         if (input == null || input.equals("")) {
             return new String[0];
         }
-        
-        //remove whitespace from input
+
+        // remove whitespace from input
         String cleanInput = removeWhitespace(input);
-        
-        //ensure non-alphabetical, numerical, and contains only allowed operators
+
+        // ensure non-alphabetical, numerical, and contains only allowed operators
         for (int i = 0; i < cleanInput.length(); i++) {
             if (!(allowedChars.contains(cleanInput.charAt(i)))) {
                 throw new IllegalArgumentException("unsupported characters.");
             }
         }
 
-        //brace checking
-        if(!checkBalance(cleanInput)) {
+        // brace checking
+        if (!checkBalance(cleanInput)) {
             throw new IllegalArgumentException("Braces are not balanced.");
         }
 
-        //checking no seqeuential operators
+        // checking no seqeuential operators
         if (!ensureNoSequentialOperators(cleanInput)) {
-            throw new IllegalArgumentException("Sequential characters are illegal.");
+            throw new IllegalArgumentException("Syntax Error");
         }
 
-        //part 1: get the numbers
+        // checking that ( is not followed by operators and operators are not followed by )
+        if (!passesParenthOperatorRules(cleanInput)) {
+            throw new IllegalArgumentException("Syntax Error");
+        }
+
+        // part 1: get the numbers
         List<String> nums = new ArrayList<>();
         nums.addAll(Arrays.asList(cleanInput.split("[\\(\\)^+*/-]")));
-        //remove empty items
+        // remove empty items
         Iterator<String> temp = nums.iterator();
         while (temp.hasNext()) {
             String curr = temp.next();
@@ -57,11 +62,13 @@ public class InputInterpreter {
             }
         }
 
-        //part 2: get the operators
+        // part 2: get the operators
         List<String> operators = new ArrayList<>();
-        cleanInput.chars().filter(c -> c == '+' || c == '-' || c == '*' || c == '/' || c == '^' || c == '(' || c == ')').forEach(o -> operators.add(Character.toString((char) o)));
+        cleanInput.chars().filter(c -> c == '+' || c == '-' || c == '*' || c == '/' || c == '^' || c == '(' || c == ')')
+                .forEach(o -> operators.add(Character.toString((char) o)));
 
-        //part 3: get the order of where to pull from to construct return array: 1 indicates from nums, 2 from operators
+        // part 3: get the order of where to pull from to construct return array: 1
+        // indicates from nums, 2 from operators
         Deque<Integer> order = new LinkedList<>();
         for (int i = 0; i < cleanInput.length(); i++) {
             char currentChar = cleanInput.charAt(i);
@@ -71,14 +78,15 @@ public class InputInterpreter {
                 continue;
             }
 
-            if (currentChar == '+' || currentChar == '-' || currentChar == '*' || currentChar == '/' || currentChar == '^' || currentChar == '(' || currentChar == ')') {
+            if (currentChar == '+' || currentChar == '-' || currentChar == '*' || currentChar == '/'
+                    || currentChar == '^' || currentChar == '(' || currentChar == ')') {
                 order.addFirst(2);
-            } else if(order.peekFirst() == 2) {
+            } else if (order.peekFirst() == 2) {
                 order.addFirst(1);
             }
         }
 
-        //part 4: reassemble Strings into string array with respect to order.
+        // part 4: reassemble Strings into string array with respect to order.
         List<String> ret = new ArrayList<>();
         Iterator<String> numIterator = nums.iterator();
         Iterator<String> opeIterator = operators.iterator();
@@ -124,12 +132,16 @@ public class InputInterpreter {
             nextCharacter = exp.charAt(position);
 
             switch (nextCharacter) {
-                case '(': case '[': case '{':
+                case '(':
+                case '[':
+                case '{':
                     stack.push(nextCharacter);
                     break;
-            
-                case ')': case ']': case '}':
-                    //fail case: there are no open left delimiters.
+
+                case ')':
+                case ']':
+                case '}':
+                    // fail case: there are no open left delimiters.
                     if (stack.isEmpty()) {
                         isBalanced = false;
                     } else {
@@ -149,20 +161,23 @@ public class InputInterpreter {
     }
 
     private boolean ensureNoSequentialOperators(String input) {
-        boolean isValid = true; //assume that the expression is proper
+        boolean isValid = true; // assume that the expression is proper
         char currentChar;
         for (int i = 0; i < input.length(); i++) {
             currentChar = input.charAt(i);
-            if (i == 0 && (currentChar == '+' || currentChar == '-' || currentChar == '*' || currentChar == '/' || currentChar == '^')) {
+            if (i == 0 && (currentChar == '+' || currentChar == '-' || currentChar == '*' || currentChar == '/'
+                    || currentChar == '^')) {
                 isValid = false;
                 break;
-            } else if (i < input.length() - 1  && (currentChar == '+' || currentChar == '-' || currentChar == '*' || currentChar == '/' || currentChar == '^')) {
+            } else if (i < input.length() - 1 && (currentChar == '+' || currentChar == '-' || currentChar == '*'
+                    || currentChar == '/' || currentChar == '^')) {
                 char tempChar = input.charAt(i + 1);
                 if (tempChar == '+' || tempChar == '-' || tempChar == '*' || tempChar == '/' || tempChar == '^') {
                     isValid = false;
                     break;
                 }
-            } else if (i == input.length() - 1 && (currentChar == '+' || currentChar == '-' || currentChar == '*' || currentChar == '/' || currentChar == '^')) {
+            } else if (i == input.length() - 1 && (currentChar == '+' || currentChar == '-' || currentChar == '*'
+                    || currentChar == '/' || currentChar == '^')) {
                 isValid = false;
                 break;
             }
@@ -171,12 +186,46 @@ public class InputInterpreter {
         return isValid;
     }
 
-    //main for testing
+    private boolean passesParenthOperatorRules(String input) {
+        boolean isValid = true; // assuming that this is true from the start
+        char currentChar;
+        for (int i = 0; i < input.length(); i++) {
+            currentChar = input.charAt(i);
+            
+            // opening parentheses at the beginning are valid.
+            if (currentChar == '(' && i > 0) {
+                char tempChar = input.charAt(i - 1);
+                if (!(tempChar == '+' || tempChar == '-' || tempChar == '*' || tempChar == '/' || tempChar == '^')) {
+                    isValid = false;
+                }
+            }
+
+            // assertion: input passes brace checking, so opening brace can't occur at the end
+            if (currentChar == '(') {
+                char tempChar = input.charAt(i + 1);
+                if (tempChar == '+' || tempChar == '-' || tempChar == '*' || tempChar == '/' || tempChar == '^') {
+                    isValid = false;
+                    break;
+                }
+            } else if (currentChar == '+' || currentChar == '-' || currentChar == '*' || currentChar == '/'
+                    || currentChar == '^') {
+                //assertion: operators should never occur at the end.
+                        char tempChar = input.charAt(i + 1);
+                if (tempChar == ')') {
+                    isValid = false;
+                    break;
+                }
+            }
+        }
+        return isValid;
+    }
+
+    // main for testing
     public static void main(String[] args) {
         InputInterpreter inp = new InputInterpreter();
-        String input = "100+243-44*300^34*(42-100)";
+        String input = "100 + 20 * 2 - 4 ^ (3+2)";
         System.out.println(Arrays.toString(inp.interpretInput(input)));
-        
+
         System.out.println(inp.removeWhitespace("1 + 2 + 4 * 5"));
     }
 }
