@@ -14,6 +14,10 @@ public class PostfixEvalulatorFMT {
     public int evaluate(String postfix) {
         String[] input = postfix.split(" ");
 
+        if (input.length == 1) {
+            throw new IllegalArgumentException("Blank Expression");
+        }
+
         // reference the previous two items in the stack for the operands
         ResizableArrayStack<Integer> mathStack = new ResizableArrayStack<>();
 
