@@ -18,5 +18,5 @@ Implementation of LinkedStack and ResizableArrayStack as well as code to convert
 - Input interpreter that can parse infix expression user input and display a calculated result (see InputInterpreterStuff/Driver.java)
 
 ## Links
-- Index File: TODO
+- Index File: See javadoc/index.html
 - Video: TODO
