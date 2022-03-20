@@ -16,6 +16,10 @@ Implementation of LinkedStack and ResizableArrayStack as well as code to convert
 - Unbalanced brace detection
 - Basic input filtration to allow only lowercase letters, numbers, and operators as the input infix expression
 - Input interpreter that can parse infix expression user input and display a calculated result (see InputInterpreterStuff/Driver.java)
+    - Sanitizes input (allows only legal characters, removes whitespace, brace checking, checking for no sequential operators, and parentheses and operator rule checking)
+    - Evaluates the expression using integer calculations
+    - No decimal support
+    - Not exactly tested properly though
 
 ## Links
 - Index File: See javadoc/index.html
