@@ -17,6 +17,6 @@ public class Driver {
         System.out.println("Postfix Expression: " + postfix);
 
         PostfixEvalulatorFMT evaluator = new PostfixEvalulatorFMT();
-        System.out.println("Evaluation of Postfix Expression using given values: " + evaluator.evaluate(postfix));
+        System.out.println("Evaluation of Postfix Expression: " + evaluator.evaluate(postfix));
     }
 }
