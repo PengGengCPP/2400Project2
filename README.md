@@ -23,4 +23,4 @@ Implementation of LinkedStack and ResizableArrayStack as well as code to convert
 
 ## Links
 - Index File: See javadoc/index.html
-- Video: TODO
+- Video: https://www.youtube.com/watch?v=ywBFBBRxytk
